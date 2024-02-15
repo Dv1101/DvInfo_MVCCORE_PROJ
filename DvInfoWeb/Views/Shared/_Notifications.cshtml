@@ -1,0 +1,86 @@
+﻿@if (TempData["SuccessMsg"] != null)
+{
+    <div class="container container-sm">
+        <div class="toast align-items-center bg-success-subtle" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast" data-bs-delay="8000" style="position: absolute; top: 65px; left: 15px; overflow-wrap:break-word;">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["SuccessMsg"]
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="progressBar" style="width: 100%"></div>
+            </div>
+        </div>
+       
+    </div>
+
+
+    <!-- Script to show the Bootstrap toast -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastBootstrap = new bootstrap.Toast(document.getElementById('liveToast'));
+            toastBootstrap.show();
+        });
+
+        // Function to update progress bar width
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            let width = 100; // Start width
+            const interval = setInterval(function () {
+                if (width <= 0) {
+                    clearInterval(interval);
+                } else {
+                    width -= 1.25; // Decrease width by 1.25% every 80ms for 8 seconds
+                    progressBar.style.width = width + '%';
+                }
+            }, 80); // Update every 80ms
+        }
+
+        // Call the function to update progress bar
+        updateProgressBar();
+    </script>
+}
+
+@if (TempData["ErrorMsg"] != null)
+{
+    <div class="container container-sm">
+        <div class="toast align-items-center bg-danger-subtle" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast" data-bs-delay="8000" style="position: absolute; top: 65px; left: 15px;">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @TempData["ErrorMsg"]
+                </div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" id="progressBar" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Script to show the Bootstrap toast -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toastBootstrap = new bootstrap.Toast(document.getElementById('liveToast'));
+            toastBootstrap.show();
+        });
+
+        // Function to update progress bar width
+        function updateProgressBar() {
+            const progressBar = document.getElementById('progressBar');
+            let width = 100; // Start width
+            const interval = setInterval(function () {
+                if (width <= 0) {
+                    clearInterval(interval);
+                } else {
+                    width -= 1.25; // Decrease width by 1.25% every 80ms for 8 seconds
+                    progressBar.style.width = width + '%';
+                }
+            }, 80); // Update every 80ms
+        }
+
+        // Call the function to update progress bar
+        updateProgressBar();
+    </script>
+}

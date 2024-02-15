@@ -1,6 +1,5 @@
 ﻿@model List<Category>
 
-
 <div class="container">
     <div class="row pt-4">
         <div class="col-6">
@@ -19,6 +18,7 @@
                     <tr>
                         <th>Category Name</th>
                         <th>Display Order</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +27,17 @@
                         <tr>
                             <td>@obj.Name</td>
                             <td>@obj.DisplayOrder</td>
+                            <td>
+                                <div class="w-75 btn-group" role="group">
+                                    <a asp-controller="Category" asp-action="Edit" asp-route-id ="@obj.CategoryId" class="btn btn-primary" mx-2>
+                                        <i class="bi bi-pencil-square"></i>&nbsp;Edit
+                                    </a>
+                                    &nbsp;
+                                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.CategoryId" class="btn btn-danger" mx-2>
+                                        <i class="bi bi-trash-fill"></i>&nbsp;Delete
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -36,4 +47,7 @@
     </div>
 
 </div>
+
+
+
 
