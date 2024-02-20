@@ -24,11 +24,7 @@ namespace DvInfoWeb.Areas.Customer.Controllers
             return View(productList);
         }
 
-        public IActionResult Details(int id)
-        {
-            IEnumerable<Product> product = _unitOfWork.Product.Get();
-            return View(product);
-        }
+        
 
         public IActionResult Privacy()
         {
