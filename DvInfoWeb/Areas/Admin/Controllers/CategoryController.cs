@@ -1,20 +1,28 @@
-﻿using DvInfoWeb.Data;
+﻿using DvInfoWeb.DataAccess.Data;
+using DvInfoWeb.DataAccess.Repository.IRepository;
 using DvInfoWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DvInfoWeb.Controllers
+namespace DvInfoWeb.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        /*private readonly ApplicationDbContext _db;
         public CategoryController(ApplicationDbContext db)
         {
             _db = db;
+        }*/
+
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
 
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _db.Categories.ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
 
             return View(objCategoryList);
         }
@@ -36,8 +44,8 @@ namespace DvInfoWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.Add(obj);
+                _unitOfWork.save();
                 TempData["SuccessMsg"] = "Category " + obj.Name + " Created.";
                 return RedirectToAction("Index", "Category");
             }
@@ -56,11 +64,11 @@ namespace DvInfoWeb.Controllers
             }
             //Category? categoryFromDb = _db.Categories.Find(id);
             //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.CategoryId == id);
-            Category?  categoryFromDb2 = _db.Categories.Where(u => u.CategoryId == id).FirstOrDefault();
+            Category? categoryFromDb2 = _unitOfWork.Category.Get(u => u.CategoryId == id);
             if (categoryFromDb2 == null)
             {
                 return NotFound();
-            } 
+            }
 
             return View(categoryFromDb2);
         }
@@ -77,8 +85,8 @@ namespace DvInfoWeb.Controllers
             }*/
             if (ModelState.IsValid)
             {
-                _db.Categories.Update(obj);
-                _db.SaveChanges();
+                _unitOfWork.Category.update(obj);
+                _unitOfWork.save();
                 TempData["SuccessMsg"] = "Category " + obj.Name + " Updated.";
                 return RedirectToAction("Index", "Category");
             }
@@ -97,7 +105,7 @@ namespace DvInfoWeb.Controllers
             }
             //Category? categoryFromDb = _db.Categories.Find(id);
             //Category? categoryFromDb1 = _db.Categories.FirstOrDefault(u => u.CategoryId == id);
-            Category? categoryFromDb2 = _db.Categories.Where(u => u.CategoryId == id).FirstOrDefault();
+            Category? categoryFromDb2 = _unitOfWork.Category.Get(u => u.CategoryId == id);
             if (categoryFromDb2 == null)
             {
                 return NotFound();
@@ -117,16 +125,16 @@ namespace DvInfoWeb.Controllers
             {
                 ModelState.AddModelError("", "Test is an invalid value");
             }*/
-            Category? obj = _db.Categories.Find(id);
-            if(obj == null)
+            Category? obj = _unitOfWork.Category.Get(u => u.CategoryId == id);
+            if (obj == null)
             {
                 return NotFound();
             }
-            _db.Categories.Remove(obj);
-            _db.SaveChanges();
+            _unitOfWork.Category.Remove(obj);
+            _unitOfWork.save();
             TempData["SuccessMsg"] = "Category " + obj.Name + " Deleted.";
             return RedirectToAction("Index", "Category");
-            
+
 
             //return View();
 

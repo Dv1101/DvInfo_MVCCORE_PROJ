@@ -1,0 +1,90 @@
+﻿@model Product
+
+<form method="post">
+    <div class="container">
+        <div class="row pt-4">
+            <div class="col-6">
+                <h1>Delete Product</h1>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary">
+                    <i class="bi bi bi-backspace"></i> Back to Product
+                </a>
+            </div>
+        </div>
+        <div asp-validation-summary="ModelOnly"></div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="">
+                    <div class="mb-2">
+                  
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" disabled class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="ISBN"></label>
+                        <input asp-for="ISBN" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="Author"></label>
+                        <input asp-for="Author" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="ListPrice"></label>
+                        <input asp-for="ListPrice" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="Price50"></label>
+                        <input asp-for="Price50" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="Price100"></label>
+                        <input asp-for="Price100" disabled class="form-control" />
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="mb-2">
+                        <label asp-for="ImageUrl"></label>
+                        <input asp-for="ImageUrl" disabled class="form-control" />
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-danger" style="width:150px;"><i class="bi bi-database-add"></i>&nbsp;Delete</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+</form>
+
+
+
+
+
+

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DvInfoWeb.Migrations
+namespace DvInfoWeb.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class AddCategoryTableToDb : Migration
