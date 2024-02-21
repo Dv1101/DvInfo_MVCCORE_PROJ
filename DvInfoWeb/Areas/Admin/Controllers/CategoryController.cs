@@ -1,11 +1,14 @@
 ﻿using DvInfoWeb.DataAccess.Data;
 using DvInfoWeb.DataAccess.Repository.IRepository;
 using DvInfoWeb.Models;
+using DvInfoWeb.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DvInfoWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         /*private readonly ApplicationDbContext _db;

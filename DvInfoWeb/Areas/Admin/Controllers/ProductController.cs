@@ -1,12 +1,15 @@
 ﻿using DvInfoWeb.DataAccess.Data;
 using DvInfoWeb.DataAccess.Repository.IRepository;
 using DvInfoWeb.Models;
+using DvInfoWeb.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DvInfoWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         /*private readonly ApplicationDbContext _db;
@@ -25,7 +28,7 @@ namespace DvInfoWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             
             return View(objProductList);
         }
@@ -207,7 +210,7 @@ namespace DvInfoWeb.Areas.Admin.Controllers
 
         public IActionResult GetAll()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+            List<Product> objProductList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new {data = objProductList});
         }
 

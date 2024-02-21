@@ -10,8 +10,8 @@ namespace DvInfoWeb.DataAccess.Repository.IRepository
     public interface IRepository<T> where T : class
     {
         //T - Category --perform crud op on it
-        IEnumerable<T> GetAll();
-        T Get(Expression<Func<T, bool>> filter ); //Passing linq as a para argument 
+        IEnumerable<T> GetAll(string? includeProperties = null);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null); //Passing linq as a para argument 
      
 
 

@@ -21,7 +21,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -29,31 +29,52 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Content Management
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-area="Admin" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+
+                                </ul>
+                            </li>
+                        }
+
                         
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Content Management
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-area="" asp-controller="Category" asp-action="Index">Category</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" asp-area="Admin" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                
-                            </ul>
-                        </li>
                         
 
                     </ul>
+
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
         
     </header>
+
+    <!--PreLoader-->
+    <div id="preloader">
+        
+
+        <div id="loader" >
+            <div class="spinner-border text-info" style="width: 5rem; height: 5rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            
+        </div>
+
+    </div>
+    <!--PreLoader-->
+
     <div class="container" style="margin-top:60px;">
         <main role="main" class="pb-3">
             <partial name="_Notifications" />
@@ -85,28 +106,40 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="//cdn.datatables.net/2.0.0/js/dataTables.min.js" asp-append-version="true"></script>
-    <script src="https://cdn.tiny.cloud/1/ifcggp7lljm6fu4czm3z8m8rxmsbxabk7umrnf9ciu5n0ebm/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // On page load, set the theme according to the user's browser settings
-            /*var prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            if (prefersDarkScheme) {
-                $("html").attr("data-bs-theme", "dark"); // Enable dark theme
-                $("#selector").prop("checked", true);
-            } else {
-                $("html").attr("data-bs-theme", "light"); // Enable light theme
-                $("#selector").prop("checked", false);
-            }*/
 
-            // When the checkbox changes, update the theme
+    <script src="https://cdn.tiny.cloud/1/ifcggp7lljm6fu4czm3z8m8rxmsbxabk7umrnf9ciu5n0ebm/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <script type="text/javascript">
+
+        window.addEventListener("load", function () {
+            var loader = document.getElementById("preloader");
+            loader.style.opacity = 0;
+            setTimeout(function () {
+                loader.style.display = "none";
+            }, 1000);
+        });
+
+        $(document).ready(function () {
+            // On page load, set the theme according to the user's saved preference
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                $("html").attr("data-bs-theme", savedTheme); // Enable saved theme
+                $("#selector").prop("checked", savedTheme === "dark");
+            }
+
+            // When the checkbox changes, update the theme and save the preference
             $("#selector").change(function () {
+                var theme;
                 if ($(this).is(":checked")) {
-                    $("html").attr("data-bs-theme", "dark"); // Enable dark theme
+                    theme = "dark"; // Enable dark theme
                 } else {
-                    $("html").attr("data-bs-theme", "light"); // Enable light theme
+                    theme = "light"; // Enable light theme
                 }
+                $("html").attr("data-bs-theme", theme);
+                localStorage.setItem('theme', theme);
             });
         });
+
 
 
     </script>
